@@ -46,6 +46,7 @@ class ProductsController < ApplicationController
       if @products.empty?
         redirect_to products_url
       else
+        @product = Product.new(params[:product])
         render "edit_multiple"
       end
     end
