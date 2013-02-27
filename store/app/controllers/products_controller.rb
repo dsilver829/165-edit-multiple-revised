@@ -40,7 +40,12 @@ class ProductsController < ApplicationController
   end
 
   def update_multiple
-    Product.update(params[:products].keys, params[:products].values)
-    redirect_to products_url
+    @products = Product.update(params[:products].keys, params[:products].values)
+    @products.reject! { |p| p.errors.empty? }
+    if @products.empty?
+      redirect_to products_url
+    else
+      "edit_multiple"
+    end
   end
 end
